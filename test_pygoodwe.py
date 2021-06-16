@@ -77,7 +77,7 @@ def test_flow_status():
     if gw.data['powerflow']['gridStatus'] == 1:
         gridflow_direction = "Exporting"
     else:
-        raise NotImplementedError(f"gw.data['powerflow']['gridStatus'] == {gw.data['powerflow']['gridStatus']}")
+        raise NotImplementedError("gw.data['powerflow']['gridStatus'] == %d" % gw.data['powerflow']['gridStatus'])
     assert gridflow_direction
 #print(f"Grid flow (W): {gridflow} {gridflow_direction}")
 

@@ -72,7 +72,7 @@ class API():
                 retval = self.getCurrentReadings(raw=raw, retry=retry+1, maxretries=maxretries, delay=delay)
             else:
                 logging.error('No inverter data after %s retries, quitting.', retry)
-                sys.exit(f"No inverter data after {retry} retries, quitting.")
+                sys.exit("No inverter data after %s retries, quitting." % retry)
         return retval
 
     # def getDayReadings(self, date):
@@ -137,7 +137,7 @@ class API():
             - filename: the path where to write the output file, default "./Plant_Power_{datestr}.xls 
         """
         datestr = datetime.strftime(date, "%Y-%m-%d")
-        outputfile = kwargs.get("filename", f"'Plant_Power_{datestr}.xls")
+        outputfile = kwargs.get("filename", "'Plant_Power_%s.xls" % datestr)
         payload = {
             'date' : datestr,
             'pw_id' : self.system_id,
@@ -167,7 +167,7 @@ class API():
             - filename: the path where to write the output file, default "./Plant_Power_{datestr}.xls
         """
         datestr = datetime.strftime(date, "%Y-%m-%d")
-        outputfile = kwargs.get("filename", f"Plant_Power_{datestr}.xls")
+        outputfile = kwargs.get("filename", "Plant_Power_%s.xls" % datestr)
         payload = {
             'date' : datestr,
             'pw_id' : self.system_id,
@@ -345,7 +345,7 @@ class SingleInverter(API):
                 retval = self.getCurrentReadings(raw=raw, retry=retry+1, maxretries=maxretries, delay=delay)
             else:
                 logging.error('No inverter data after %s retries, quitting.', retry)
-                sys.exit(f"No inverter data after {retry} retries, quitting.")
+                sys.exit("No inverter data after %s retries, quitting." % retry)
         return retval
 
     def _get_station_location(self):
@@ -390,7 +390,7 @@ class SingleInverter(API):
         elif self.data['powerflow']['loadStatus'] == 1:
             loadflow_direction = "Using Battery"
         else:
-            raise ValueError(f"Your 'load' is doing something odd - status is '{self.data['powerflow']['loadStatus']}''.") #pylint: disable=line-too-long
+            raise ValueError("Your 'load' is doing something odd - status is '%d''." % self.data['powerflow']['loadStatus']) #pylint: disable=line-too-long
         self.loadflow = loadflow
         self.loadflow_direction = loadflow_direction
         return loadflow
